@@ -1,4 +1,6 @@
 const express = require('express');
+const path = require('path');
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const HttpError = require('./models/http-error');
 const mongoose = require('mongoose');
@@ -9,6 +11,8 @@ const usersRoutes = require('./routes/users-routes');
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -33,13 +37,19 @@ app.get('/', (req, res) => {
 });
 
 app.use((error, req, res, next) => {
+    if (req.file) {
+        fs.unlink(req.file.path, (err) => {
+            console.log(err);
+        });
+    }
+    if (res.headerSent) return next(error);
     res.status(error.code || 500);
     res.json({ message: error.message || 'An unknown error occoured' });
 });
 
 mongoose
     .connect(
-        'mongodb+srv://pandeysiddhant21:t1kZ0r6hNvfwU84J@cluster0.tudekvq.mongodb.net/mern?retryWrites=true&w=majority'
+        `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.tudekvq.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
     )
     .then(() => {
         app.listen(5000);
