@@ -14,6 +14,10 @@ app.use(bodyParser.json());
 
 app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
+app.get('/', (req, res) => {
+    res.send('<h1>Hello There!</h1>');
+});
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
