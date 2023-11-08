@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
 app.get('/', (req, res) => {
-    res.send('<h1>Hello There!</h1>');
+    res.send('<h1>Backend Working!</h1>');
 });
 
 app.use((req, res, next) => {
