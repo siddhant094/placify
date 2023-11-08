@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 
 const router = express.Router();
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 
 const placesControllers = require('../controllers/places-controller');
 const fileUpload = require('../middleware/file-upload');
@@ -12,7 +12,7 @@ const checkAuth = require('../middleware/check-auth');
 router.get('/:pid', placesControllers.getPlaceById);
 router.get('/user/:uid', placesControllers.getPlacesByUserId);
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 router.use(checkAuth);
 
