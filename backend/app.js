@@ -28,6 +28,8 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/dev/users', usersRoutes);
+
 app.use('/api/places', placesRoutes); // => /api/places/....
 app.use('/api/users', usersRoutes); // => /api/places/....
 
