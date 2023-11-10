@@ -1,5 +1,5 @@
 const HttpError = require('../models/http-error');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
@@ -51,8 +51,15 @@ const signup = async (req, res, next) => {
         return next(error);
     }
     let hashedPassword;
+    const saltRounds = 10;
     try {
-        hashedPassword = await bcrypt.hash(password, 12);
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+            bcrypt.hash(password, salt, function (err, hash) {
+                // returns hash
+                hashedPassword = hash;
+                // console.log(hash);
+            });
+        });
     } catch (err) {
         const error = new HttpError(
             'could not create user, please try again. ' + err.message,
