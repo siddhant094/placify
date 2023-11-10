@@ -2,6 +2,7 @@ const HttpError = require('../models/http-error');
 const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
+const fileUpload = require('../middleware/file-upload');
 
 const User = require('../models/user');
 
@@ -19,7 +20,9 @@ const getUsers = async (req, res, next) => {
     }
     res.json({ users: users.map((user) => user.toObject({ getters: true })) });
 };
+
 const signup = async (req, res, next) => {
+    fileUpload.single('image');
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.log(errors);
