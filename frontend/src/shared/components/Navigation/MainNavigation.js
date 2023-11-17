@@ -40,8 +40,8 @@ const MainNavigation = (props) => {
                 </button>
                 <h1 className='main-navigation__title'>
                     <Link to='/'>
-                        <img src={logo1} height={50} className='' />
-                        <img src={logo2} height={50} className='' />
+                        <img src={logo1} height={50} className='logo' />
+                        <img src={logo2} height={50} className='logo' />
                     </Link>
                 </h1>
                 <nav className='main-navigation__header-nav'>
