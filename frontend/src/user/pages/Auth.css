@@ -3,6 +3,12 @@
   text-align: center;
 }
 
+h2,
+h3,
+p {
+  color: white;
+}
+
 .authentication {
   width: 90%;
   max-width: 25rem;

@@ -59,6 +59,7 @@ mongoose
     )
     .then(() => {
         app.listen(5000);
+        console.log('connected');
     })
     .catch((error) => {
         console.log(error);

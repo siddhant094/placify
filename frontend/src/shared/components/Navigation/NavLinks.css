@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600&family=Roboto:wght@300&display=swap');
+
 .nav-links {
+  font-family: 'Quicksand', sans-serif;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -24,9 +27,9 @@
 .nav-links a:hover,
 .nav-links a:active,
 .nav-links a.active {
-  background: #f8df00;
-  border-color: #292929;
-  color: #292929;
+  /* background: #f8df00; */
+  /* border-color: #292929; */
+  color: #f8df00;
 }
 
 .nav-links button {
@@ -67,10 +70,10 @@
     color: white;
     background: transparent;
   }
-  
+
   .nav-links button:hover,
   .nav-links button:active {
-    background: #f8df00;
-    color: #292929;
+    /* background: #f8df00; */
+    color: #f8df00;
   }
 }

@@ -18,12 +18,12 @@ router.use(checkAuth);
 
 router.post(
     '/',
-    fileUpload.single('image'),
-    [
-        check('title').not().isEmpty(),
-        check('description').isLength({ min: 5 }),
-        check('address').not().isEmpty(),
-    ],
+    // fileUpload.single('image'),
+    // [
+    //     check('title').not().isEmpty(),
+    //     check('description').isLength({ min: 5 }),
+    //     check('address').not().isEmpty(),
+    // ]
     placesControllers.createPlace
 );
 

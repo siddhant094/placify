@@ -4,9 +4,9 @@
   top: 22vh;
   left: 10%;
   width: 80%;
-  background: white;
+  background: rgb(18, 20, 23);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 8px;
+  border-radius: 15px;
 }
 
 .modal__header {
@@ -14,6 +14,8 @@
   padding: 1rem 0.5rem;
   background: #2a006e;
   color: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 .modal__header h2 {

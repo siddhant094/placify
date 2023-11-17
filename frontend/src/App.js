@@ -78,7 +78,7 @@ const App = () => {
                     <Suspense
                         fallback={
                             <div className='center'>
-                                <LoadingSpinner />
+                                <LoadingSpinner asOverlay />
                             </div>
                         }
                     >

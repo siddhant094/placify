@@ -17,16 +17,19 @@
 .form-control textarea {
   width: 100%;
   font: inherit;
-  border: 1px solid #ccc;
-  background: #f8f8f8;
+  /* border: 1px solid #ccc; */
+  /* background: #f8f8f8; */
+  border-radius: 5px;
+  border: 0px;
   padding: 0.15rem 0.25rem;
+  padding: 8px;
 }
 
 .form-control input:focus,
 .form-control textarea:focus {
   outline: none;
-  background: #ebebeb;
-  border-color: #510077;
+  /* background: #ebebeb; */
+  border-color: white;
 }
 
 .form-control--invalid label,
@@ -37,5 +40,11 @@
 .form-control--invalid input,
 .form-control--invalid textarea {
   border-color: red;
-  background: #ffd1d1;
+  /* background: #ffd1d1; */
+}
+
+input,
+textarea {
+  background-color: rgb(0, 0, 0);
+  color: white;
 }
