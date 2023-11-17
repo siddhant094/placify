@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const cloudinary = require('../middleware/cloudinary');
 // const fileUpload = require('../middleware/file-upload');
 
 const HttpError = require('../models/http-error');
@@ -22,7 +23,6 @@ const getUsers = async (req, res, next) => {
 };
 
 const signup = async (req, res, next) => {
-    // console.log('HERE0');
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.log(errors);
@@ -31,11 +31,22 @@ const signup = async (req, res, next) => {
             new HttpError('Invalid inputs passed, please check your data.', 422)
         );
     }
-    // console.log('HERE1');
+
+    let imageUpload;
+    try {
+        imageUpload = await cloudinary.uploader.upload(req.file.path);
+        console.log(imageUpload);
+    } catch (err) {
+        const error = new HttpError(
+            'Image Upload failed, please try again later.',
+            500
+        );
+        console.log(err);
+        return next(error);
+    }
 
     const { name, email, password } = req.body;
 
-    // console.log('HERE2');
     let existingUser;
     try {
         existingUser = await User.findOne({ email: email });
@@ -47,7 +58,7 @@ const signup = async (req, res, next) => {
         console.log(err);
         return next(error);
     }
-    // console.log('HERE3');
+
     if (existingUser) {
         const error = new HttpError(
             'User exists already, please login instead.',
@@ -74,17 +85,16 @@ const signup = async (req, res, next) => {
         console.log(err);
         return next(error);
     }
-    // console.log('HERE4');
+
     const createdUser = new User({
         name,
         email,
-        image: req.file.path,
+        image: imageUpload.secure_url,
         password: hashedPassword,
         places: [],
     });
-    // console.log(createdUser);
+
     try {
-        // console.log('saving user');
         await createdUser.save();
     } catch {
         (err) => {
@@ -96,6 +106,9 @@ const signup = async (req, res, next) => {
             return next(error);
         };
     }
+
+    var matches = imageUpload.secure_url.match(/upload\/(?:v\d+\/)?([^\.]+)/);
+    console.log(matches[1]);
 
     let token;
     try {
@@ -112,7 +125,7 @@ const signup = async (req, res, next) => {
         console.log(err);
         return next(error);
     }
-    console.log('HERE5');
+    // console.log('HERE5');
     res.status(201).json({
         userId: createdUser.id,
         email: createdUser.email,

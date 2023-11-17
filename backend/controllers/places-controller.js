@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 const fs = require('fs');
+const cloudinary = require('../middleware/cloudinary');
 
 const HttpError = require('../models/http-error');
 const getCoordsForAddress = require('../util/location');
@@ -67,6 +68,19 @@ const createPlace = async (req, res, next) => {
         next(new HttpError('Invalid inputs passed, please check data', 422));
     }
 
+    let imageUpload;
+    try {
+        imageUpload = await cloudinary.uploader.upload(req.file.path);
+        console.log(imageUpload);
+    } catch (err) {
+        const error = new HttpError(
+            'Image Upload failed, please try again later.',
+            500
+        );
+        console.log(err);
+        return next(error);
+    }
+
     const { title, description, address } = req.body;
     let coordinates;
     try {
@@ -80,7 +94,7 @@ const createPlace = async (req, res, next) => {
         description,
         address,
         location: coordinates,
-        // image: req.file.path,
+        image: imageUpload.secure_url,
         creator: req.userData.userId,
     });
     // checking if creator exists
@@ -204,7 +218,19 @@ const deletePlace = async (req, res, next) => {
         return next(error);
     }
 
-    const imagePath = place.image;
+    var matches = place.image.match(/upload\/(?:v\d+\/)?([^\.]+)/);
+    try {
+        cloudinary.uploader.destroy(matches[1]);
+    } catch (err) {
+        const error = new HttpError(
+            'error deleting image, could not delete place.',
+            500
+        );
+        console.log(err);
+        return next(error);
+    }
+
+    // const imagePath = place.image;
 
     try {
         const sess = await mongoose.startSession();
@@ -222,9 +248,10 @@ const deletePlace = async (req, res, next) => {
         console.log(err);
         return next(error);
     }
-    fs.unlink(imagePath, (err) => {
-        console.log(err);
-    });
+    // fs.unlink(imagePath, (err) => {
+    //     console.log(err);
+    // });
+
     res.status(200).json({ message: 'deleted place.' });
 };
 

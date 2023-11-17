@@ -5,7 +5,8 @@ import MainHeader from './MainHeader';
 import NavLinks from './NavLinks';
 import SideDrawer from './SideDrawer';
 import Backdrop from '../UIElements/Backdrop';
-import logo from '../../../assets/logo.png';
+import logo1 from '../../../assets/logo-icon.png';
+import logo2 from '../../../assets/logo-text.png';
 import './MainNavigation.css';
 
 const MainNavigation = (props) => {
@@ -39,7 +40,8 @@ const MainNavigation = (props) => {
                 </button>
                 <h1 className='main-navigation__title'>
                     <Link to='/'>
-                        <img src={logo} height={50} className='' />
+                        <img src={logo1} height={50} className='' />
+                        <img src={logo2} height={50} className='' />
                     </Link>
                 </h1>
                 <nav className='main-navigation__header-nav'>
