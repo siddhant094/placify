@@ -103,6 +103,8 @@ const Auth = () => {
         setIsLoginMode((prevMode) => !prevMode);
     };
 
+    console.log('is formState Valid: ', formState.isValid);
+
     return (
         <React.Fragment>
             <ErrorModal error={error} onClear={clearError} />

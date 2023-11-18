@@ -2,7 +2,7 @@
     "env": {
         "DB_USER": "pandeysiddhant21",
         "DB_PASSWORD": "t1kZ0r6hNvfwU84J",
-        "DB_NAME": "mern-prod",
+        "DB_NAME": "mern",
         "JWT_KEY": "priv_server_key",
         "CLOUDINARY_CLOUD_NAME": "dvndzs8ly",
         "CLOUDINARY_API_KEY": "125656551875438",
