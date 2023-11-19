@@ -5,6 +5,7 @@ import {
     Redirect,
     Switch,
 } from 'react-router-dom';
+import { inject } from '@vercel/analytics';
 
 // import Users from './user/pages/Users';
 // import UserPlaces from './places/pages/UserPlaces';
@@ -23,6 +24,7 @@ const UpdatePlace = React.lazy(() => import('./places/pages/UpdatePlace'));
 const Auth = React.lazy(() => import('./user/pages/Auth'));
 
 const App = () => {
+    inject();
     const { token, login, logout, userId } = useAuth();
     let routes;
 
